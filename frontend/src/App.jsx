@@ -4,11 +4,13 @@ import AnnotationControls from './components/AnnotationControl';
 import Canvas from './components/Canvas';
 import AnnotationList from './components/AnnotationList';
 
-function App() {
+const App=()=> {
+  // States to hold the image, annotations, and current annotation being edited
   const [image, setImage] = useState(null);
   const [annotations, setAnnotations] = useState([]);
   const [currentAnnotation, setCurrentAnnotation] = useState(null);
 
+  // Function to handle the image upload
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -17,10 +19,12 @@ function App() {
     }
   };
 
+    // Function to add a new annotation
   const handleAddAnnotation = (type) => {
     setCurrentAnnotation({ type, x: 100, y: 100, width: 100, height: 50, text: '' });
   };
 
+  // Function to handle changes in annotation fields (x, y, width, height, text)
   const handleAnnotationChange = (e) => {
     if (currentAnnotation) {
       const updatedAnnotation = { ...currentAnnotation, [e.target.name]: e.target.value };
@@ -28,6 +32,7 @@ function App() {
     }
   };
 
+  // Function to save the current annotation and add it to the list
   const handleSaveAnnotation = () => {
     if (currentAnnotation) {
       setAnnotations([...annotations, currentAnnotation]);
@@ -35,6 +40,7 @@ function App() {
     }
   };
 
+  // Function to delete an annotation based on its index
   const handleDeleteAnnotation = (index) => {
     const newAnnotations = annotations.filter((_, i) => i !== index);
     setAnnotations(newAnnotations);
